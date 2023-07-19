@@ -15,6 +15,41 @@ const routes = [
 		path: '/lovs',
 		name: 'lovs.index',
 		component: LovIndex,
+	},
+	{
+		path: '/exercises',
+		name: 'exercises.index',
+		component: LovIndex,
+	},
+	{
+		path: '/workouts',
+		name: 'workouts.index',
+		component: LovIndex,
+	},
+	{
+		path: '/trainings',
+		name: 'trainings.index',
+		component: LovIndex,
+	},
+	{
+		path: '/body',
+		name: 'bodies.index',
+		component: LovIndex,
+	},
+	{
+		path: '/one-rep-max',
+		name: 'oneRepMax.index',
+		component: LovIndex,
+	},
+	{
+		path: '/weights',
+		name: 'weights.index',
+		component: LovIndex,
+	},
+	{
+		path: '/goals',
+		name: 'goals.index',
+		component: LovIndex,
 	}
 ]
 
