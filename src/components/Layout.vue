@@ -1,14 +1,7 @@
-<script setup>
-
-  import NavbarMenu from '@/components/NavbarMenu.vue'
-  import BreadcrumbNav from '@/components/BreadcrumbNav.vue'
-;
-</script>
-
 <template>
     <div class="bg-gray-50">
         <div class="min-h-screen max-w-screen mx-auto">
-            <navbar-menu />
+            <navbar-menu :active="active" />
 
             <breadcrumb-nav />
             <div class="px-12 py-6">
@@ -17,3 +10,13 @@
         </div>
     </div>
 </template>
+
+<script setup>
+
+    import NavbarMenu from '@/components/NavbarMenu.vue'
+    import BreadcrumbNav from '@/components/BreadcrumbNav.vue'
+
+    defineProps({
+        active: String,
+    })
+</script>

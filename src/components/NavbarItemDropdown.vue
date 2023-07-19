@@ -9,7 +9,9 @@
             <li v-for="dropdownItem in item.dropdownItems" :key="dropdownItem.id">
                 <router-link
                 :to="{ name: dropdownItem.routeName }" 
-                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                :class="[ item.routeName == active ? 
+                'block px-4 py-2 bg-primary-700 lg:bg-transparent lg:text-primary-700 lg:p-0 dark:text-white' : 
+                'block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white']">
                 {{ dropdownItem.label }}
             </router-link>
             </li>
@@ -20,5 +22,6 @@
 <script setup>
     defineProps({
         item: Object,
+        active: String,
     })
 </script>
