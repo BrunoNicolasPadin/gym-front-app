@@ -5,6 +5,11 @@
 
             <breadcrumb-nav :breadcrumbItems="breadcrumbItems" />
             <div class="px-12 py-6">
+                <div class="mb-3">
+                    <span class="text-2xl">
+                        <slot name="title"></slot>
+                    </span>
+                </div>
                 <slot name="content"></slot>
             </div>
         </div>
