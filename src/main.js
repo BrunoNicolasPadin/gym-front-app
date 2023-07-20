@@ -5,8 +5,10 @@ import PrimeVue from 'primevue/config'
 import "primevue/resources/themes/tailwind-light/theme.css"
 import 'primeicons/primeicons.css'
 import router from './router.js'
+import { TailwindPagination } from 'laravel-vue-pagination'
 
 const app = createApp(App)
 app.use(PrimeVue)
 app.use(router)
+app.component('TailwindPagination', TailwindPagination);
 app.mount('#app')
