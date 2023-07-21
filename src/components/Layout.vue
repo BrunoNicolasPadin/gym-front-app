@@ -6,7 +6,7 @@
             <breadcrumb-nav :breadcrumbItems="breadcrumbItems" />
             <div class="px-12 py-6">
                 <div class="mb-3">
-                    <span class="text-2xl">
+                    <span class="text-2xl font-medium text-gray-900 dark:text-white">
                         <slot name="title"></slot>
                     </span>
                 </div>
