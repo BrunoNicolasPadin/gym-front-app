@@ -8,6 +8,7 @@ export default function useLovs() {
     const router = useRouter()
     const route = useRoute()
     const lovs = ref([])
+    const lov = ref([])
     const errors = ref({})
 
     const getLovs = async (page = 1, search = '', filter = 'label') => {
@@ -23,11 +24,44 @@ export default function useLovs() {
                 name: 'lovs.index',
             })
         } catch (e) {
+            console.log(e)
             if(e && e.response && e.response.data && e.response.data.errors) {
                 errors.value = e.response.data.errors
             }
         }
     }
 
-    return { lovs, getLovs, addLov, errors }
+    const getLov = async (id) => {
+        const response = await axios.get(`/lovs/${id}`)
+        lov.value = await response.data;
+    }
+
+    const updateLov = async (id, form) => {
+        try {
+            const response = await axios.post(`lovs/${id}`, form)
+            
+            router.push({
+                name: 'lovs.index',
+            })
+        } catch (e) {
+            console.log(e)
+            if(e && e.response && e.response.data && e.response.data.errors) {
+                errors.value = e.response.data.errors
+            }
+        }
+    }
+
+    const deleteLov = async (id) => {
+        try {
+            await axios.post(`/lovs/${id}`, {_method: 'delete'})
+            getLovs(1)
+        } catch (e) {
+            console.log(e)
+            if(e && e.response && e.response.data && e.response.data.errors) {
+                errors.value = e.response.data.errors
+            }
+        }
+    }
+
+    return { lovs, getLovs, addLov, errors, getLov, lov, updateLov, deleteLov }
 }

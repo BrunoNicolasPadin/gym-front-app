@@ -91,10 +91,10 @@
                                     {{ lov.label }}
                                 </td>
                                 <td class="px-6 py-4">
-                                    <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                                    <router-link :to="{ name: 'lovs.edit', params: { id: lov.id }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</router-link>
                                 </td>
                                 <td class="px-6 py-4">
-                                    <a href="#" class="font-medium text-red-600 dark:text-red-500 hover:underline">Delete</a>
+                                    <span @click="removeLov(lov.id)" class="cursor-pointer font-medium text-red-600 dark:text-red-500 hover:underline">Delete</span>
                                 </td>
                             </tr>
                         </tbody>
@@ -136,10 +136,15 @@
     const search = ref('')
     const filter = ref('label')
 
-    const { lovs, getLovs } = useLovs()
+    const { lovs, getLovs, deleteLov } = useLovs()
     getLovs(1, search.value)
 
     function searchLov() {
         getLovs(1, search.value, filter.value)
+    }
+
+    function removeLov(id) {
+        deleteLov(id)
+        getLovs(1, search.value)
     }
 </script>

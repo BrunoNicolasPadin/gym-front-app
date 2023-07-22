@@ -8,7 +8,7 @@
                     </li>
                 </ul>
             </div>
-            <form method="post" @submit.prevent="post">
+            <form @submit.prevent="put">
                 <div class="grid grid-cols-2 gap-x-2 mb-6">
                     <div>
                         <label for="category" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Category</label>
@@ -28,10 +28,12 @@
 </template>
 
 <script setup>
-    import { ref } from 'vue'
+    import { computed, ref } from 'vue'
+    import { useRoute } from 'vue-router'
     import Layout from '@/components/Layout.vue'
     import useLovs from '@/composables/useLovs.js'
 
+    const route = useRoute()
     const active = 'lovs.index'
     const breadcrumbItems = ref([
         {
@@ -45,7 +47,7 @@
             id: 2,
             first: false,
             routeName: null,
-            label: 'Create',
+            label: 'Edit',
             last: true,
         },
     ])
@@ -53,11 +55,16 @@
     const form = ref({
         category: null,
         label: null,
+        _method: 'put',
     })
 
-    const { addLov, errors } = useLovs()
+    const { errors, getLov, lov, updateLov } = useLovs()
+    getLov(route.params.id).then(() => {
+        form.value.category = lov.value.category
+        form.value.label = lov.value.label
+    })
 
-    function post() {
-        addLov(form.value)
+    function put() {
+        updateLov(route.params.id, form.value)
     }
 </script>

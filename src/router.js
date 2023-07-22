@@ -3,6 +3,7 @@ import { createWebHistory, createRouter } from 'vue-router'
 import Home from '@/pages/Home.vue'
 import LovIndex from '@/pages/lovs/LovIndex.vue'
 import LovCreate from '@/pages/lovs/LovCreate.vue'
+import LovEdit from '@/pages/lovs/LovEdit.vue'
 
 const routes = [
 	{
@@ -19,6 +20,11 @@ const routes = [
 		path: '/lovs/create',
 		name: 'lovs.create',
 		component: LovCreate,
+	},
+	{
+		path: '/lovs/:id/edit',
+		name: 'lovs.edit',
+		component: LovEdit,
 	},
 	{
 		path: '/exercises',
