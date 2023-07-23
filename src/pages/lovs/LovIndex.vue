@@ -104,7 +104,7 @@
                 <TailwindPagination
                     class="mt-4"
                     :data="lovs"
-                    @pagination-change-page="getLovs"
+                    @pagination-change-page="searchLov"
                 />
             </div>
             <div v-else class="mt-4">
@@ -118,7 +118,7 @@
 </template>
 
 <script setup>
-    import { ref } from 'vue'
+    import { ref, watch } from 'vue'
     import Layout from '@/components/Layout.vue'
     import useLovs from '@/composables/useLovs.js'
 
@@ -137,14 +137,15 @@
     const filter = ref('label')
 
     const { lovs, getLovs, deleteLov } = useLovs()
-    getLovs(1, search.value)
+    getLovs()
 
-    function searchLov() {
-        getLovs(1, search.value, filter.value)
+    function searchLov(page) {
+        getLovs(page, search.value, filter.value)
     }
 
     function removeLov(id) {
         deleteLov(id)
         getLovs(1, search.value)
     }
+
 </script>

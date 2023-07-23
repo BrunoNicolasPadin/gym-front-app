@@ -10,8 +10,10 @@ export default function useLovs() {
     const lovs = ref([])
     const lov = ref([])
     const errors = ref({})
+    const currentPage = ref(1)
 
     const getLovs = async (page = 1, search = '', filter = 'label') => {
+        currentPage.value = page
         const response = await axios.get(`/lovs/?page=${page}&filter[${filter}]=${search}`)
         lovs.value = await response.data;
     }
@@ -63,5 +65,5 @@ export default function useLovs() {
         }
     }
 
-    return { lovs, getLovs, addLov, errors, getLov, lov, updateLov, deleteLov }
+    return { lovs, getLovs, currentPage, addLov, errors, getLov, lov, updateLov, deleteLov }
 }
