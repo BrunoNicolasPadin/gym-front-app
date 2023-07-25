@@ -1,9 +1,6 @@
 import { createWebHistory, createRouter } from 'vue-router'
 
 import Home from '@/pages/Home.vue'
-import LovIndex from '@/pages/lovs/LovIndex.vue'
-import LovCreate from '@/pages/lovs/LovCreate.vue'
-import LovEdit from '@/pages/lovs/LovEdit.vue'
 
 const routes = [
 	{
@@ -14,52 +11,52 @@ const routes = [
 	{
 		path: '/lovs',
 		name: 'lovs.index',
-		component: LovIndex,
+		component: () => import(/* webpackChunkName: "LovIndex" */ '@/pages/lovs/LovIndex.vue'),
 	},
 	{
 		path: '/lovs/create',
 		name: 'lovs.create',
-		component: LovCreate,
+		component: () => import(/* webpackChunkName: "LovCreate" */ '@/pages/lovs/LovCreate.vue'),
 	},
 	{
 		path: '/lovs/:id/edit',
 		name: 'lovs.edit',
-		component: LovEdit,
+		component: () => import(/* webpackChunkName: "LovEdit" */ '@/pages/lovs/LovEdit.vue'),
 	},
 	{
 		path: '/exercises',
 		name: 'exercises.index',
-		component: LovIndex,
+		component: () => import(/* webpackChunkName: "LovIndex" */ '@/pages/lovs/LovIndex.vue'),
 	},
 	{
 		path: '/workouts',
 		name: 'workouts.index',
-		component: LovIndex,
+		component: () => import(/* webpackChunkName: "LovIndex" */ '@/pages/lovs/LovIndex.vue'),
 	},
 	{
 		path: '/trainings',
 		name: 'trainings.index',
-		component: LovIndex,
+		component: () => import(/* webpackChunkName: "LovIndex" */ '@/pages/lovs/LovIndex.vue'),
 	},
 	{
 		path: '/body',
 		name: 'bodies.index',
-		component: LovIndex,
+		component: () => import(/* webpackChunkName: "LovIndex" */ '@/pages/lovs/LovIndex.vue'),
 	},
 	{
 		path: '/one-rep-max',
 		name: 'oneRepMax.index',
-		component: LovIndex,
+		component: () => import(/* webpackChunkName: "LovIndex" */ '@/pages/lovs/LovIndex.vue'),
 	},
 	{
 		path: '/weights',
 		name: 'weights.index',
-		component: LovIndex,
+		component: () => import(/* webpackChunkName: "LovIndex" */ '@/pages/lovs/LovIndex.vue'),
 	},
 	{
 		path: '/goals',
 		name: 'goals.index',
-		component: LovIndex,
+		component: () => import(/* webpackChunkName: "LovIndex" */ '@/pages/lovs/LovIndex.vue'),
 	}
 ]
 
