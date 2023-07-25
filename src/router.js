@@ -4,6 +4,11 @@ import Home from '@/pages/Home.vue'
 
 const routes = [
 	{
+		path: '/:pathMatch(.*)*',
+		name: 'notFound',
+		component: () => import(/* webpackChunkName: "404Error" */ '@/pages/errors/404.vue'),
+	},
+	{
 		path: '/',
 		name: 'home',
 		component: Home,
