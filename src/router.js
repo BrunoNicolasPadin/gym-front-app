@@ -8,7 +8,7 @@ import LovEdit from '@/pages/lovs/LovEdit.vue'
 const routes = [
 	{
 		path: '/',
-		name: 'Home',
+		name: 'home',
 		component: Home,
 	},
 	{
