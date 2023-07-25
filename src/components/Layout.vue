@@ -1,7 +1,7 @@
 <template>
     <div class="bg-gray-50">
         <div class="min-h-screen max-w-screen mx-auto">
-            <navbar-menu :active="active" />
+            <navbar-menu />
 
             <breadcrumb-nav :breadcrumbItems="breadcrumbItems" />
             <div class="px-12 py-6">
@@ -21,7 +21,6 @@
     import BreadcrumbNav from '@/components/BreadcrumbNav.vue'
 
     defineProps({
-        active: String,
         breadcrumbItems: Object,
     })
 </script>

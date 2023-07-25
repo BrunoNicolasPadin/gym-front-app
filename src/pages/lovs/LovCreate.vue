@@ -38,7 +38,7 @@
 </template>
 
 <script setup>
-    import { ref } from 'vue'
+    import { ref, provide } from 'vue'
     import Layout from '@/components/Layout.vue'
     import FormErrorMessages from '@/components/FormErrorMessages.vue'
     import FormGrid from '@/components/FormGrid.vue'
@@ -47,6 +47,7 @@
     import useLovs from '@/composables/useLovs.js'
 
     const active = 'lovs.index'
+    provide(/* key */ 'active', /* value */ active)
     const breadcrumbItems = ref([
         {
             id: 1,

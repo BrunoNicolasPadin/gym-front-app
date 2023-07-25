@@ -38,7 +38,7 @@
 </template>
 
 <script setup>
-    import { computed, ref } from 'vue'
+    import { ref, provide } from 'vue'
     import { useRoute } from 'vue-router'
     import Layout from '@/components/Layout.vue'
     import FormErrorMessages from '@/components/FormErrorMessages.vue'
@@ -49,6 +49,7 @@
 
     const route = useRoute()
     const active = 'lovs.index'
+    provide(/* key */ 'active', /* value */ active)
     const breadcrumbItems = ref([
         {
             id: 1,

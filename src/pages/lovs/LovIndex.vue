@@ -87,7 +87,7 @@
 </template>
 
 <script setup>
-    import { ref } from 'vue'
+    import { ref, provide } from 'vue'
     import Layout from '@/components/Layout.vue'
     import useLovs from '@/composables/useLovs.js'
     import TableActions from '@/components/TableActions.vue'
@@ -100,6 +100,7 @@
     import TableRow from '@/components/TableRow.vue'
 
     const active = 'lovs.index'
+    provide(/* key */ 'active', /* value */ active)
     const breadcrumbItems = ref([
         {
             id: 1,

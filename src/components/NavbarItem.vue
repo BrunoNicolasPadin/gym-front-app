@@ -11,10 +11,12 @@
 </template>
 
 <script setup>
-    import NavbarItemDropdown from "@/components/NavbarItemDropdown.vue";
+    import { inject } from 'vue'
+    import NavbarItemDropdown from "@/components/NavbarItemDropdown.vue"
 
     defineProps({
         items: Object,
-        active: String,
     })
+
+    const active = inject('active')
 </script>
