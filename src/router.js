@@ -12,6 +12,7 @@ const routes = [
 		path: '/',
 		name: 'home',
 		component: Home,
+		alias: '/home'
 	},
 	{
 		path: '/lovs',
@@ -24,7 +25,7 @@ const routes = [
 		component: () => import(/* webpackChunkName: "LovCreate" */ '@/pages/lovs/LovCreate.vue'),
 	},
 	{
-		path: '/lovs/:id/edit',
+		path: '/lovs/:id(\\d+)+/edit',
 		name: 'lovs.edit',
 		component: () => import(/* webpackChunkName: "LovEdit" */ '@/pages/lovs/LovEdit.vue'),
 	},
@@ -68,6 +69,9 @@ const routes = [
 const router = createRouter({
 	history: createWebHistory(),
 	routes,
+	scrollBehavior (to, from, savedPosition) {
+		return savedPosition || { top:0 }
+	}
 })
 
 export default router
