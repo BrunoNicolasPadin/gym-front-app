@@ -1,4 +1,5 @@
 import { createWebHistory, createRouter } from 'vue-router'
+import { useUserStore } from '@/stores/userStore'
 
 import Home from '@/pages/Home.vue'
 
@@ -13,6 +14,16 @@ const routes = [
 		name: 'home',
 		component: Home,
 		alias: '/home'
+	},
+	{
+		path: '/register',
+		name: 'register',
+		component: () => import(/* webpackChunkName: "Register" */ '@/pages/auth/Register.vue'),
+	},
+	{
+		path: '/login',
+		name: 'login',
+		component: () => import(/* webpackChunkName: "Login" */ '@/pages/auth/Login.vue'),
 	},
 	{
 		path: '/lovs',
@@ -73,5 +84,29 @@ const router = createRouter({
 		return savedPosition || { top:0 }
 	}
 })
+
+router.beforeEach(async (to, from) => {
+    const userStore = useUserStore();
+
+	if (userStore.auth && to.name == 'login') {
+		return {
+        	name: 'home' 
+      	}
+	}
+
+	else if (userStore.auth && to.name == 'register') {
+		return {
+        	name: 'home' 
+      	}
+	}
+
+	else if (!userStore.auth && to.name !== 'login' && to.name !== 'register') {
+		console.log(userStore.auth);
+
+		return {
+        	name: 'login' 
+      	}
+	}
+  })
 
 export default router

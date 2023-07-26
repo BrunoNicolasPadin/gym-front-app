@@ -1,12 +1,11 @@
 import { ref } from 'vue'
-import { useRouter, useRoute } from 'vue-router'
+import { useRouter } from 'vue-router'
 import axios from 'axios'
 
-axios.defaults.baseURL = 'http://127.0.0.1:8000/api'
+axios.defaults.baseURL = 'http://localhost:8000/api'
 
 export default function useLovs() {
     const router = useRouter()
-    const route = useRoute()
     const lovs = ref([])
     const lov = ref([])
     const errors = ref({})
@@ -14,7 +13,7 @@ export default function useLovs() {
 
     const getLovs = async (page = 1, search = '', filter = 'label') => {
         currentPage.value = page
-        const response = await axios.get(`/lovs/?page=${page}&filter[${filter}]=${search}`)
+        const response = await axios.get(`/lovs?page=${page}&filter[${filter}]=${search}`)
         lovs.value = await response.data;
     }
 
@@ -40,7 +39,7 @@ export default function useLovs() {
 
     const updateLov = async (id, form) => {
         try {
-            const response = await axios.post(`lovs/${id}`, form)
+            await axios.post(`lovs/${id}`, form)
             
             router.push({
                 name: 'lovs.index',
