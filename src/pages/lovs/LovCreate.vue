@@ -8,6 +8,7 @@
                 <form-grid>
                     <div>
                         <form-input-text
+                            type='text'
                             label='Category *'
                             labelFor="category"
                             v-model="form.category"
@@ -18,6 +19,7 @@
                     </div>
                     <div>
                         <form-input-text
+                            type='text'
                             label='Label *'
                             labelFor="label"
                             v-model="form.label"

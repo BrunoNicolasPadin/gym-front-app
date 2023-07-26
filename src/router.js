@@ -101,8 +101,6 @@ router.beforeEach(async (to, from) => {
 	}
 
 	else if (!userStore.auth && to.name !== 'login' && to.name !== 'register') {
-		console.log(userStore.auth);
-
 		return {
         	name: 'login' 
       	}
