@@ -8,7 +8,7 @@
         type: String,
         label: String,
         labelFor: String,
-        modelValue: String,
+        modelValue: String|Number,
         placeholderData: String,
         requiredValue: Boolean
     })
