@@ -43,7 +43,17 @@ const routes = [
 	{
 		path: '/exercises',
 		name: 'exercises.index',
-		component: () => import(/* webpackChunkName: "LovIndex" */ '@/pages/lovs/LovIndex.vue'),
+		component: () => import(/* webpackChunkName: "ExerciseIndex" */ '@/pages/exercises/ExerciseIndex.vue'),
+	},
+	{
+		path: '/exercises/create',
+		name: 'exercises.create',
+		component: () => import(/* webpackChunkName: "ExerciseCreate" */ '@/pages/exercises/ExerciseCreate.vue'),
+	},
+	{
+		path: '/exercises/:id(\\d+)+/edit',
+		name: 'exercises.edit',
+		component: () => import(/* webpackChunkName: "ExerciseEdit" */ '@/pages/exercises/ExerciseEdit.vue'),
 	},
 	{
 		path: '/workouts',

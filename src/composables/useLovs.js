@@ -64,5 +64,10 @@ export default function useLovs() {
         }
     }
 
-    return { lovs, getLovs, currentPage, addLov, errors, getLov, lov, updateLov, deleteLov }
+    const getLovsWithoutPaginate = async (search = '', filter = 'category') => {
+        const response = await axios.get(`/lovs-for-category?filter[${filter}]=${search}`)
+        lovs.value = await response.data;
+    }
+
+    return { lovs, getLovs, currentPage, addLov, errors, getLov, lov, updateLov, deleteLov, getLovsWithoutPaginate }
 }
