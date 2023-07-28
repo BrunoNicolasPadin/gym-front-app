@@ -71,6 +71,21 @@ const routes = [
 		component: () => import(/* webpackChunkName: "WorkoutEdit" */ '@/pages/workouts/WorkoutEdit.vue'),
 	},
 	{
+		path: '/workouts/:workout_id(\\d+)+/days',
+		name: 'days.index',
+		component: () => import(/* webpackChunkName: "DayIndex" */ '@/pages/days/DayIndex.vue'),
+	},
+	{
+		path: '/workouts/:workout_id(\\d+)+/days/create',
+		name: 'days.create',
+		component: () => import(/* webpackChunkName: "DayCreate" */ '@/pages/days/DayCreate.vue'),
+	},
+	{
+		path: '/workouts/:workout_id(\\d+)+/days/:id(\\d+)+/edit',
+		name: 'days.edit',
+		component: () => import(/* webpackChunkName: "DayEdit" */ '@/pages/days/DayEdit.vue'),
+	},
+	{
 		path: '/trainings',
 		name: 'trainings.index',
 		component: () => import(/* webpackChunkName: "LovIndex" */ '@/pages/lovs/LovIndex.vue'),

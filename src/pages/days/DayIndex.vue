@@ -1,7 +1,7 @@
 <template>
     <layout :active="active" :breadcrumbItems="breadcrumbItems">
         <template #title>
-            <span>Exercises</span>
+            <span>Days</span>
         </template>
 
         <template #content>
@@ -9,7 +9,7 @@
                 <table-input-search>
                     <input 
                         v-model="search"
-                        @keyup="searchExercise"
+                        @keyup="searchDay"
                         type="text"
                         placeholder="Search"
                         id="simple-search"
@@ -20,7 +20,7 @@
                 <div class="flex flex-col items-stretch justify-end flex-shrink-0 w-full space-y-2 md:w-auto md:flex-row md:space-y-0 md:items-center md:space-x-3">
                     
                     <table-add-button 
-                        routeName="exercises.create"
+                        routeName="days.create"
                     />
 
                     <table-filter-dropdown>
@@ -32,41 +32,24 @@
                             v-model="filter"
                             @update:modelValue="value = $event"
                         />
-
-                        <table-filter-dropdown-list 
-                            value="musclesWorked"
-                            label='Muscle worked'
-                            labelFor='musclesWorked'
-                            name="filters"
-                            v-model="filter"
-                            @update:modelValue="value = $event"
-                        />
                     </table-filter-dropdown>
                 </div>
             </table-actions>
-            <div v-if="exercises.data !== []">
+            <div v-if="days.data !== []">
                 <table-structure>
                     <template #headers>
                         <table-header colspan="1" header="Name" />
-                        <table-header colspan="1" header="Image" />
-                        <table-header colspan="1" header="Video" />
                         <table-header colspan="2" header="Actions" />
                     </template>
 
                     <template #rows>
-                        <tr v-for="exercise in exercises.data" :key="exercise.id" class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-                            <table-row>{{ exercise.name }}</table-row>
+                        <tr v-for="day in days.data" :key="day.id" class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+                            <table-row>{{ day.name }}</table-row>
                             <table-row>
-                                <div v-if="exercise.image">
-                                    <img class="h-20 w-full" :src="`http://localhost:8000/storage/${exercise.image}`" alt="Exercise photo">
-                                </div>
-                            </table-row>
-                            <table-row><a :href="exercise.youtube" target="_blank" rel="noopener noreferrer" class="hover:underline hover:text-blue-500">{{ exercise.youtube }}</a></table-row>
-                            <table-row>
-                                <router-link :to="{ name: 'exercises.edit', params: { id: exercise.id }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</router-link>
+                                <router-link :to="{ name: 'days.edit', params: { id: day.id }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</router-link>
                             </table-row>
                             <table-row>
-                                <span @click="removeExercise(exercise.id)" class="cursor-pointer font-medium text-red-600 dark:text-red-500 hover:underline">Delete</span>
+                                <span @click="removeDay(day.id)" class="cursor-pointer font-medium text-red-600 dark:text-red-500 hover:underline">Delete</span>
                             </table-row>
                         </tr>
                     </template>
@@ -74,8 +57,8 @@
 
                 <TailwindPagination
                     class="mt-4"
-                    :data="exercises"
-                    @pagination-change-page="searchExercise"
+                    :data="days"
+                    @pagination-change-page="searchDay"
                 />
             </div>
             <div v-else class="mt-4">
@@ -90,6 +73,7 @@
 
 <script setup>
     import { ref, provide } from 'vue'
+    import { useRoute } from 'vue-router'
     import Layout from '@/components/Layout.vue'
     import TableActions from '@/components/TableActions.vue'
     import TableInputSearch from '@/components/TableInputSearch.vue'
@@ -99,32 +83,40 @@
     import TableStructure from '@/components/TableStructure.vue'
     import TableHeader from '@/components/TableHeader.vue'
     import TableRow from '@/components/TableRow.vue'
-    import useExercises from '@/composables/useExercises.js'
+    import useDays from '@/composables/useDays.js'
 
-    const active = 'exercises.index'
+    const route = useRoute()
+    const active = 'days.index'
     provide(/* key */ 'active', /* value */ active)
     const breadcrumbItems = ref([
         {
             id: 1,
             first: true,
-            routeName: 'exercises.index',
-            label: 'Exercises',
+            routeName: 'workouts.index',
+            label: 'Workouts',
             last: false,
+        },
+        {
+            id: 2,
+            first: false,
+            routeName: 'days.index',
+            label: 'Days',
+            last: true,
         },
     ])
 
     const search = ref('')
     const filter = ref('name')
 
-    const { exercises, getExercises, deleteExercise } = useExercises()
-    getExercises()
+    const { days, getDays, deleteDay } = useDays()
+    getDays(1, route.params.workout_id)
 
-    function searchExercise(page) {
-        getExercises(page, search.value, filter.value)
+    function searchDay(page) {
+        getDays(page, route.params.workout_id, search.value, filter.value)
     }
 
-    function removeExercise(id) {
-        deleteExercise(id)
+    function removeDay(id) {
+        deleteDay(route.params.workout_id, id)
     }
 
 </script>

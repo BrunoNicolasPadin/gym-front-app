@@ -69,6 +69,7 @@
                         <table-header colspan="1" header="Weeks" />
                         <table-header colspan="1" header="Start" />
                         <table-header colspan="1" header="End" />
+                        <table-header colspan="1" header="Days" />
                         <table-header colspan="2" header="Actions" />
                     </template>
 
@@ -78,6 +79,9 @@
                             <table-row>{{ workout.weeks }}</table-row>
                             <table-row>{{ workout.start }}</table-row>
                             <table-row>{{ workout.end }}</table-row>
+                            <table-row>
+                                <router-link :to="{ name: 'days.index', params: { workout_id: workout.id }}" class="font-medium text-green-600 dark:text-green-500 hover:underline">Days</router-link>
+                            </table-row>
                             <table-row>
                                 <router-link :to="{ name: 'workouts.edit', params: { id: workout.id }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</router-link>
                             </table-row>
@@ -141,7 +145,6 @@
 
     function removeWorkout(id) {
         deleteWorkout(id)
-        getWorkouts(1, search.value)
     }
 
 </script>

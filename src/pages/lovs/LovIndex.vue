@@ -123,7 +123,6 @@
 
     function removeLov(id) {
         deleteLov(id)
-        getLovs(1, search.value)
     }
 
 </script>
