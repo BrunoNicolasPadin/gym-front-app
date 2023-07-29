@@ -4,24 +4,27 @@ import axios from 'axios'
 
 axios.defaults.baseURL = 'http://localhost:8000/api'
 
-export default function useDays() {
+export default function useDaysExercises() {
     const router = useRouter()
-    const days = ref([])
-    const day = ref([])
+    const daysExercises = ref([])
+    const dayExercise = ref([])
     const errors = ref({})
 
-    const getDays = async (page = 1, workout_id, search = '', filter = 'name') => {
-        const response = await axios.get(`workouts/${workout_id}/days?page=${page}&filter[${filter}]=${search}`)
-        days.value = await response.data
+    const getDaysExercises = async (workout_id, day_id) => {
+        const response = await axios.get(`workouts/${workout_id}/days/${day_id}/exercises`)
+        daysExercises.value = await response.data
     }
 
-    const addDay = async (workout_id, form) => {
+    const addDayExercise = async (workout_id, day_id, form) => {
         try {
-            await axios.post(`workouts/${workout_id}/days`, form)
+            await axios.post(`workouts/${workout_id}/days/${day_id}/exercises`, form)
             
             router.push({
-                name: 'days.index',
-                params: { workout_id: workout_id }
+                name: 'daysExercises.index',
+                params: { 
+                    workout_id: workout_id,
+                    day_id: day_id 
+                }
             })
         } catch (e) {
             console.log(e)
@@ -31,12 +34,12 @@ export default function useDays() {
         }
     }
 
-    const getDay = async (workout_id, id) => {
+    const getDayExercise = async (workout_id, day_id, id) => {
         const response = await axios.get(`workouts/${workout_id}/days/${id}`)
-        day.value = await response.data
+        dayExercise.value = await response.data
     }
 
-    const updateDay = async (workout_id, id, form) => {
+    const updateDayExercise = async (workout_id, id, form) => {
         try {
             await axios.post(`workouts/${workout_id}/days/${id}`, form)
             
@@ -52,10 +55,10 @@ export default function useDays() {
         }
     }
 
-    const deleteDay = async (workout_id, id) => {
+    const deleteDayExercise = async (workout_id, id) => {
         try {
             await axios.post(`workouts/${workout_id}/days/${id}`, {_method: 'delete'})
-            await getDays(1, workout_id)
+            getDays(1, workout_id, null, null)
         } catch (e) {
             console.log(e)
             if(e && e.response && e.response.data && e.response.data.errors) {
@@ -64,5 +67,5 @@ export default function useDays() {
         }
     }
 
-    return { days, getDays, addDay, errors, getDay, day, updateDay, deleteDay }
+    return { daysExercises, getDaysExercises, addDayExercise, errors, getDayExercise, dayExercise, updateDayExercise, deleteDayExercise }
 }

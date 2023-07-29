@@ -38,7 +38,7 @@
     import useDays from '@/composables/useDays.js'
 
     const route = useRoute()
-    const active = 'workouts.index'
+    const active = 'days.index'
     provide(/* key */ 'active', /* value */ active)
     const breadcrumbItems = ref([
         {

@@ -39,14 +39,17 @@
                 <table-structure>
                     <template #headers>
                         <table-header colspan="1" header="Name" />
-                        <table-header colspan="2" header="Actions" />
+                        <table-header colspan="3" header="Actions" />
                     </template>
 
                     <template #rows>
                         <tr v-for="day in days.data" :key="day.id" class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
                             <table-row>{{ day.name }}</table-row>
                             <table-row>
-                                <router-link :to="{ name: 'days.edit', params: { id: day.id }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</router-link>
+                                <router-link :to="{ name: 'daysExercises.index', params: { workout_id: workout_id, day_id: day.id }}" class="font-medium text-green-600 dark:text-green-500 hover:underline">Exercises</router-link>
+                            </table-row>
+                            <table-row>
+                                <router-link :to="{ name: 'days.edit', params: { workout_id: workout_id, id: day.id }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</router-link>
                             </table-row>
                             <table-row>
                                 <span @click="removeDay(day.id)" class="cursor-pointer font-medium text-red-600 dark:text-red-500 hover:underline">Delete</span>
@@ -86,7 +89,8 @@
     import useDays from '@/composables/useDays.js'
 
     const route = useRoute()
-    const active = 'days.index'
+    const workout_id = route.params.workout_id
+    const active = 'workouts.index'
     provide(/* key */ 'active', /* value */ active)
     const breadcrumbItems = ref([
         {
@@ -109,14 +113,14 @@
     const filter = ref('name')
 
     const { days, getDays, deleteDay } = useDays()
-    getDays(1, route.params.workout_id)
+    getDays(1, workout_id)
 
     function searchDay(page) {
-        getDays(page, route.params.workout_id, search.value, filter.value)
+        getDays(page, workout_id, search.value, filter.value)
     }
 
     function removeDay(id) {
-        deleteDay(route.params.workout_id, id)
+        deleteDay(workout_id, id)
     }
 
 </script>

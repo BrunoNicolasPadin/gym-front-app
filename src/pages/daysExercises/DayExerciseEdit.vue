@@ -4,7 +4,7 @@
             <form-error-messages
                 :errors="errors"
             />
-            <form @submit.prevent="post">
+            <form @submit.prevent="put">
                 <form-grid>
                     <div>
                         <form-input-text
@@ -18,6 +18,7 @@
                         />
                     </div>
                 </form-grid>
+
                 <form-button-submit
                     action="Submit" 
                 />
@@ -41,7 +42,7 @@
     const active = 'workouts.index'
     provide(/* key */ 'active', /* value */ active)
     const breadcrumbItems = ref([
-        {
+    {
             id: 1,
             first: true,
             routeName: 'workouts.index',
@@ -58,19 +59,23 @@
         {
             id: 3,
             first: false,
-            routeName: 'days.create',
-            label: 'Create',
+            routeName: 'days.edit',
+            label: 'Edit',
             last: true,
         },
     ])
 
     const form = ref({
         name: null,
+        _method: 'put',
     })
 
-    const { addDay, errors } = useDays()
+    const { errors, getDay, day, updateDay } = useDays()
+    getDay(route.params.workout_id, route.params.id).then(() => {
+        form.value.name = day.value.name
+    })
 
-    function post() {
-        addDay(route.params.workout_id, form.value)
+    function put() {
+        updateDay(route.params.workout_id, route.params.id, form.value)
     }
 </script>
